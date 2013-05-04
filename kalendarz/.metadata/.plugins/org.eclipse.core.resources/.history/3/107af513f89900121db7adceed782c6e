@@ -1,0 +1,67 @@
+<?php //szablon strony www
+    class Website
+    {
+    	//części strony
+    	public $content;
+		public $title = 'Kalendarz - efektywne zarządzanie czasem';
+		public $keywords = 'kalendarz';
+		public $menu = array (
+			'Home'=>"index.php",
+			'Kalendarz'=>'kalendarz.php',
+			'Książka adresowa'=>'ksiazkaadresowa.php',
+			'Faq'=>'faq.php',
+			'Kontakt'=>'kontakt.php'	
+			);
+			
+		//metody
+		public function _set($name,$value)
+		{
+			$this->$name=$value;
+		}
+		
+		public function viewTitle() //funkcja wyświetlająca title
+		{
+			echo "<title>$this->title</title>";
+		}
+		
+		public function viewKeywords() //funkcja wyświetlająca keywords
+		{
+			echo "<meta name=\"keywords\" content=\"".htmlspecialchars($this->$keywords)."\"/>";
+		}
+		
+		public function viewCss() //funkcja wyświetlająca CSS
+		{
+			
+		}
+		
+		public function viewHeader () //funkcja wyświetlająca nagłówek
+		{
+			?>
+			<div id="header">
+			<h1>Kalendarz - efektywne zarządzanie czasem</h1>	
+			<h2>Projekt zaliczeniowy na studia podyplomowe</h2>
+			</div>
+			<?php
+		}
+		
+		public function viewMenu($menu) //funckcja wyświetlająca menu
+		{
+			foreach ($menu as $name=>$url)
+			{
+				echo "<a href=\"$url\" title=\"$name\">$name</a> | ";
+			}
+		}
+		
+		public function viewFooter() //funkcja wyświetlająca stopkę
+		{
+			?>
+			<div id="footer">
+			<h5>&copy; Kalendarz - projekt w ramach studiów podyplomowych <br/>
+			<a href="index.php">Strona główna</a> | <a href="#">Kalendarz</a> | <a href="#">Książka adresowa</a> | <a href="faq.php">Faq</a> |
+	 		<a href="kontakt.php">Kontakt</a> 
+			</h5>
+			</div>
+			<?php
+		}
+    }
+?>

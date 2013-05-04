@@ -1,0 +1,6 @@
+<?php
+    require_once 'website.php';
+	$homepage=new Website();
+	$homepage->content='<p>test</p>';
+	$homepage->viewWebsite();
+?>

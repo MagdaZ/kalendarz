@@ -1,0 +1,84 @@
+<?php //szablon strony www
+    class Website
+    {
+    	//czê¶ci strony
+    	public $content;
+		public $title = 'Kalendarz - efektywne zarz±dzanie czasem';
+		public $keywords = 'kalendarz';
+		public $menu = array (
+			'Home'=>"index.php",
+			'Kalendarz'=>'kalendarz.php',
+			'Ksi±¿ka adresowa'=>'ksiazkaadresowa.php',
+			'Faq'=>'faq.php',
+			'Kontakt'=>'kontakt.php'	
+			);
+			
+		//metody
+		public function _set($name,$value)
+		{
+			$this->$name=$value;
+		}
+		
+		public function viewTitle() //funkcja wy¶›wietlaj±ca title
+		{
+			echo "<title>$this->title</title>";
+		}
+		
+		public function viewKeywords() //funkcja wy¶›wietlaj±…ca keywords
+		{
+			//echo "<meta name=\"keywords\" content=\".htmlspecialchars($this->$keywords).\"/>";
+			echo "<meta name=\"keywords\ content=\"($this->keywords)\" />";
+		}
+		
+		public function viewCss() //funkcja wy¶›wietlaj±ca CSS
+		{
+			echo "<link rel=\"stylesheet\" href=\"css/style.css\" type=\"text/css\"/>";
+		}
+		
+		public function viewHeader () //funkcja wy¶wietlaj±ca nag³ówek
+		{
+			?>
+			<div id="header">
+			<h1>Kalendarz - efektywne zarz±dzanie czasem</h1>	
+			<h2>Projekt zaliczeniowy na studia podyplomowe</h2>
+			</div>
+			<?php
+		}
+		
+		public function viewMenu($menu) //funckcja wy¶›wietlaj±ca menu
+		{
+			foreach ($menu as $name=>$url)
+			{
+				echo "<a href=\"$url\" title=\"$name\">$name</a> | ";
+			}
+		}
+		
+		public function viewFooter() //funkcja wy¶wietlaj±…ca stopkê™
+		{
+			?>
+			<div id="footer">
+			<h5>&copy; Kalendarz - projekt w ramach studiów podyplomowych <br/>
+			<a href="index.php">Strona g³ówna</a> | <a href="#">Kalendarz</a> | <a href="#">Ksi±¿ka adresowa</a> | <a href="faq.php">Faq</a> |
+	 		<a href="kontakt.php">Kontakt</a> 
+			</h5>
+			</div>
+			<?php
+		}
+		
+		public function viewWebsite() //funkcja wy¶wietlaj±ca ca³± stronê
+		{
+			echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+			echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n";
+			echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-2\" />";
+			$this->viewTitle();
+			$this->viewKeywords();
+			$this->viewCss();
+			echo "</head>\n<body>";
+			$this->viewHeader();
+			$this->viewMenu($this->menu);
+			echo $this->content;
+			$this->viewFooter();
+			echo "</body>\n</html>\n";
+		}
+    }
+?>

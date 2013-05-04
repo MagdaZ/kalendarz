@@ -1,0 +1,9 @@
+body {
+ background: #eeeeee;
+}
+
+
+#header {
+	height:250px;
+	background: url(../images/header.png) right no-repeat;
+}

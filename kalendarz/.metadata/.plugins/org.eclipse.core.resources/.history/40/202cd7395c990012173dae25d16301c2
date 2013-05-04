@@ -1,0 +1,16 @@
+body {
+ background: #eeeeee;
+ padding: 20px;
+}
+
+
+#header {
+	height:250px;
+	background: url(../images/header.png) right no-repeat;
+}
+
+h1 {
+	font-family: Arial, Verdana;
+	font-size: 28pt;
+	font-style: oblique;
+}

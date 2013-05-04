@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
+      <title>Kalendarz-efektywne zarządzanie czasem</title>
+      <meta name="author" content="Magdalena Zachwieja, MichaĹ Oczko, Krzysztof Bednarz"/>
+      <meta name="description" content="Projekt zaliczeniowy"/>
+      <meta name="keywords" content="kalendarz" />
+     
+      <link rel="stylesheet" href="css/style.css" type="text/css"/>
+     
+	
+</head>
+
+<body>
+
+<?php 
+  include ('files/header.html');
+?>
+
+<div  id="tekst">
+  	<h1>Kontakt </h1>
+		<div class="mail">
+        	<form action="" method="post"><div>
+		<p style="text-align:center;">Wpisz wiadomość:*</p>   
+		<textarea name="content" cols="40" rows="8"><?= $content; ?></textarea>
+		<p style="text-align:center;">Podaj e-mail zwrotny:*</p> 
+		<input type="text" name="email" size="50" value="<?= $email; ?>"/><br/>
+		<input  type="checkbox" name="copy"/>
+		Wysłać kopię na adres nadawcy <br/> <br/>
+		*-pole obowiązkowe <br/> <br/>
+	        <input type="submit" value="Wyślij wiadomość"/></div>
+		</form>
+<?PHP
+
+if (empty($_POST['email']) || empty($_POST['content']) ){
+  echo '<h3 style="text-align:center;">Musisz wypełnić wszystkie pola!</h3>';
+}
+  else
+{
+  	$adresat = 'mmagdaz@poczta.fm'; 	
+	@$email = $_POST['email'];
+	@$content = $_POST['content'];
+	$header = 	"From: <".$_POST['email'].">  \nContent-Type:".
+			' text/plain;charset="iso-8859-2"'.
+			"\nContent-Transfer-Encoding: 8bit";
+  
+if(isset($_POST['copy'])) {
+  (mail($adresat, 'List z losy-zydow.cba.pl', $content, $header));
+  (mail($email, 'Kopia listu z losy-zydow.cba.pl',$content, $header));    
+    echo '<h3 style="text-align:center;">Wiadomość  i kopia zostały wysłane poprawnie!</h3>';
+    }
+    else {
+      (mail($adresat, 'List z losy-zydow.cba.pl', $content, $header));
+       echo '<h3 style="text-align:center;">Wiadomość została wysłana poprawnie!</h3>';
+}
+}
+      
+?>
+	
+</div>
+	
+<?php 
+  include ('files/footer.html');
+?>
+
+</body>

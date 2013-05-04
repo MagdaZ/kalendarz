@@ -1,0 +1,27 @@
+body {
+ background: #eeeeee;
+ width: 1000px;
+ padding: 0 20px 0 20px;
+ font-family: Arial, Verdana;
+}
+
+
+#header {
+	height:150px;
+	background: #cccccc url(../images/header.png) right no-repeat;
+}
+
+#footer {
+	height
+}
+
+h1 {
+	font-size: 30pt;
+	font-style: oblique;
+	padding:20px;
+}
+
+h2 {
+	font-size: 16pt;
+	padding-left:20px;
+}

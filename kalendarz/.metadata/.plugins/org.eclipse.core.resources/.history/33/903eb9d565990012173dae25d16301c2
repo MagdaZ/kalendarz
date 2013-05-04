@@ -1,0 +1,55 @@
+<?php 
+  include ('files/head.html');
+?>
+
+
+<?php 
+  include ('files/header.html');
+?>
+
+<div  id="tekst">
+  	<h1>Kontakt </h1>
+		<div class="mail">
+        <form action="" method="post"><div>
+		<p >Wpisz wiadomo¶æ:*</p>   
+		<textarea name="content" cols="100" rows="8"><?= $content; ?></textarea>
+		<p>Podaj e-mail zwrotny:*</p> 
+		<input type="text" name="email" size="100" value="<?= $email; ?>"/><br/>
+		<input  type="checkbox" name="copy"/>
+		Wys³aæ kopiê na adres nadawcy <br/> <br/>
+		*-pole obowi±zkowe <br/> <br/>
+	        <input type="submit" value="Wy¶lij wiadomo¶æ"/></div>
+		</form>
+<?php
+
+if (empty($_POST['email']) || empty($_POST['content']) ){
+  echo '<h3>Musisz wype³niæ wszystkie pola!</h3>';
+}
+  else
+{
+  	$adresat = 'magda.zachwieja@gmail.com'; 	
+	@$email = $_POST['email'];
+	@$content = $_POST['content'];
+	$header = 	"From: <".$_POST['email'].">  \nContent-Type:".
+			' text/plain;charset="iso-8859-2"'.
+			"\nContent-Transfer-Encoding: 8bit";
+  
+if(isset($_POST['copy'])) {
+  (mail($adresat, 'List z kalendarza', $content, $header));
+  (mail($email, 'Kopia listu z kalendarza',$content, $header));    
+    echo '<h3 style="text-align:center;">Wiadomo¶æ  i kopia zosta³y wys³ane poprawnie!</h3>';
+    }
+    else {
+      (mail($adresat, 'List z kalendarza', $content, $header));
+       echo '<h3 style="text-align:center;">Wiadomo¶æ zosta³a wys³ana poprawnie!</h3>';
+}
+}
+      
+?>
+	
+</div>
+	
+<?php 
+  include ('files/footer.html');
+?>
+
