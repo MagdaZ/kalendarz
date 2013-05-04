@@ -7,7 +7,10 @@
 			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_limit.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
 			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_year_view.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
 			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_agenda_view.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_cookie.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_recurring.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
 			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_pdf.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+			echo "<script src=\"cal/translate_pl.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
 			echo "<style type=\"text/css\" media=\"screen\">
 						html, body{
 						margin:0px;
@@ -33,19 +36,19 @@
 						{name:\"time\", height:72, type:\"time\", map_to:\"auto\"}
 						]
 					scheduler.config.first_hour=4;
-					scheduler.locale.labels.section_location=\"Location\";
+					scheduler.locale.labels.section_location=\"Miejsce\";
 		
 					//wydarzenie ca³odniowe
 					scheduler.config.details_on_create=true;
 					scheduler.config.details_on_dblclick=true;
 					scheduler.config.full_day = true;
 		
+				
 
 					//wy¶wietlanie widoku startowego z danymi z bazy
 					scheduler.init(\"scheduler_here\",null,\"week\"); 
 					scheduler.setLoadMode(\"month\")
 					scheduler.load(\"cal/data/events.php\");
-		
 					var dp = new dataProcessor(\"cal/data/events.php\");
 					dp.init(scheduler);
 
@@ -88,6 +91,7 @@
 			<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
 			<div class="dhx_cal_tab" name="year_tab" style="right:330px;"></div>
 			<div class="dhx_cal_tab" name="agenda_tab" style="right:265px;"></div>
+	
 		</div>
 		<div class="dhx_cal_header">
 		</div>
