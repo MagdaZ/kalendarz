@@ -4,7 +4,7 @@ require_once 'website.php';
 require_once 'editAddressBook.php';
 $homepage = new Website();
 //nawiazanie polaczenia z baza danych
-$db = new SQLite3('kalendarz.db');
+$db = new SQLite3('cal/common/database.sqlite');
 $edit = new editAddressBook();
 
 
