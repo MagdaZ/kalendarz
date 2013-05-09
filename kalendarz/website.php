@@ -10,7 +10,8 @@
 			'Kalendarz'=>'kalendarz.php',
 			'Ksi±¿ka adresowa'=>'ksiazkaadresowa.php',
 			'Faq'=>'faq.php',
-			'Kontakt'=>'kontakt.php'	
+			'Kontakt'=>'kontakt.php',
+			'Logowanie'=>'logowanie.php'	
 			);
 			
 		//metody
@@ -46,7 +47,7 @@
 			<h1>Kalendarz - efektywne zarz±dzanie czasem</h1>	
 			<h2>Projekt zaliczeniowy na studia podyplomowe</h2>
 			<h3><a href="index.php">Strona g³ówna</a> | <a href="kalendarz.php">Kalendarz</a> | <a href="ksiazkaadresowa.php">Ksi±¿ka adresowa</a> | <a href="faq.php">Faq</a> |
-	 		<a href="kontakt.php">Kontakt</a> </h3>
+	 		<a href="kontakt.php">Kontakt</a>|<a href="logowanie.php">Logowanie</a></h3>
 			</div>
 			<?php
 		}
@@ -65,8 +66,8 @@
 			<div id="footer">
 			<h5>&copy; Kalendarz - projekt w ramach studiów podyplomowych <br/>
 			<a href="index.php">Strona g³ówna</a> | <a href="kalendarz.php">Kalendarz</a> | <a href="ksiazkaadresowa.php">Ksi±¿ka adresowa</a> | <a href="faq.php">Faq</a> |
-	 		<a href="kontakt.php">Kontakt</a>
-			
+	 		<a href="kontakt.php">Kontakt</a> |<a href="logowanie.php">Logowanie</a> 
+			 
 			
 			</h5>
 			</div>

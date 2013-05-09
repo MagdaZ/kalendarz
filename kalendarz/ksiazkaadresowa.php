@@ -1,90 +1,92 @@
 <?php
-
 require_once 'website.php';
 require_once 'editAddressBook.php';
+session_start();
+
 $homepage = new Website();
 //nawiazanie polaczenia z baza danych
+
 $db = new SQLite3('cal/common/database.sqlite');
 $edit = new editAddressBook();
-
-
-//dodawania nowych uzytkownikow lub edycja w zaleznosci od danych wprowadzonych do formularza
-if (isset($_POST['editId'])) {
-	$name = $_POST['name'];
-	$surname = $_POST['surname'];
-	$email = $_POST['email'];
-	$position = $_POST['position'];
-	$id = $_POST['editId'];
-	if ($id == '') {
-		$edit -> addPerson($name, $surname, $email, $position, $db);
-		$homepage -> content .= '
+if (isset($_SESSION['zalogowany'])) {
+	$homepage -> content .= 'Witam, ' . $_SESSION['login'];
+	//dodawania nowych uzytkownikow lub edycja w zaleznosci od danych wprowadzonych do formularza
+	if (isset($_POST['editId'])) {
+		$name = $_POST['name'];
+		$surname = $_POST['surname'];
+		$email = $_POST['email'];
+		$position = $_POST['position'];
+		$id = $_POST['editId'];
+		if ($id == '') {
+			$edit -> addPerson($name, $surname, $email, $position, $db);
+			$homepage -> content .= '
 		<script type="text/javascript">
 		alert ("Dodano nowa osobe do ksiazki adresowej.");
 		</script>
 		';
-	} else {
-		$edit -> editPerson($name, $surname, $email, $position, $id, $db);
-		$homepage -> content .= '
+		} else {
+			$edit -> editPerson($name, $surname, $email, $position, $id, $db);
+			$homepage -> content .= '
 		<script type="text/javascript">
 		alert ("Dane osoby zostaly zmienione.");
 		</script>
 		';
+		}
 	}
-}
-if (isset($_GET['delId'])) {
-	$delId = $_GET['delId'];
-	$edit -> delPerson($delId, $db);
-	$homepage -> content .= '
+	if (isset($_GET['delId'])) {
+		$delId = $_GET['delId'];
+		$edit -> delPerson($delId, $db);
+		$homepage -> content .= '
 	<script type="text/javascript">
 	alert ("Usunieto osobe z ksiazki adresowej.");
 	</script>
 	';
-}
+	}
 
-$sortMethod = "PersonId";
+	$sortMethod = "PersonId";
 
-if (isset($_GET['sort'])) {
-	$sortMethod = $_GET['sort'];
-}
+	if (isset($_GET['sort'])) {
+		$sortMethod = $_GET['sort'];
+	}
 
-$preparedQuery = $edit -> sort($sortMethod);
+	$preparedQuery = $edit -> sort($sortMethod);
 
-//pobranie wszystkich danych z tabeli Persons oraz wyswietlenie ich w formie tabeli
+	//pobranie wszystkich danych z tabeli Persons oraz wyswietlenie ich w formie tabeli
 
-$result = $db -> Query("$preparedQuery");
+	$result = $db -> Query("$preparedQuery");
 
-$arrayContent = '<br/><br/>';
-$arrayContent .= "<table class=\"center\" cellpadding=\"2\" border=1>";
+	$arrayContent = '<br/><br/>';
+	$arrayContent .= "<table class=\"center\" cellpadding=\"2\" border=1>";
 
-//dodanie naglowkow do tabeli
-$arrayContent .= "<tr>";
-$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=PersonId\">Id</a>" . "</b></td>";
-$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Surname\">Nazwisko</a>" . "</b></td>";
-$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Name\">Imie</a>" . "</b></td>";
-$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Mail\">Mail</a>" . "</b></td>";
-$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Position\">Stanowisko</a>" . "</b></td>";
-$arrayContent .= "<td><b>" . "Usuwanie" . "</b></td>";
-$arrayContent .= "</tr>";
-
-//pobranie w petli kolejnych rekordow z bazy danych i ich wyswietlenie
-while ($r = $result -> fetchArray()) {
+	//dodanie naglowkow do tabeli
 	$arrayContent .= "<tr>";
-	$arrayContent .= "<td>" . $r['PersonId'] . "</td>";
-	$arrayContent .= "<td>" . $r['Surname'] . "</td>";
-	$arrayContent .= "<td>" . $r['Name'] . "</td>";
-	$arrayContent .= "<td>" . $r['Mail'] . "</td>";
-	$arrayContent .= "<td>" . $r['Position'] . "</td>";
-	$PersonId = $r['PersonId'];
-	//odnosnik przekierowujacy do edycji danych, ktory umozliwia usuniecie rekordu
-	$arrayContent .= "<td>" . "<a href=\"ksiazkaadresowa.php?delId=$PersonId\">Usun</a>" . "</td>";
-	$arrayContent .= "</td>";
+	$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=PersonId\">Id</a>" . "</b></td>";
+	$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Surname\">Nazwisko</a>" . "</b></td>";
+	$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Name\">Imie</a>" . "</b></td>";
+	$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Mail\">Mail</a>" . "</b></td>";
+	$arrayContent .= "<td><b>" . "<a href=\"ksiazkaadresowa.php?sort=Position\">Stanowisko</a>" . "</b></td>";
+	$arrayContent .= "<td><b>" . "Usuwanie" . "</b></td>";
 	$arrayContent .= "</tr>";
-}
-$arrayContent .= "</table>";
 
-//dopisanie zawartosci tabeli do zmiennej, ktora jest wyswietlana na stronie
-$homepage -> content .= $arrayContent;
-$homepage -> content .= '
+	//pobranie w petli kolejnych rekordow z bazy danych i ich wyswietlenie
+	while ($r = $result -> fetchArray()) {
+		$arrayContent .= "<tr>";
+		$arrayContent .= "<td>" . $r['PersonId'] . "</td>";
+		$arrayContent .= "<td>" . $r['Surname'] . "</td>";
+		$arrayContent .= "<td>" . $r['Name'] . "</td>";
+		$arrayContent .= "<td>" . $r['Mail'] . "</td>";
+		$arrayContent .= "<td>" . $r['Position'] . "</td>";
+		$PersonId = $r['PersonId'];
+		//odnosnik przekierowujacy do edycji danych, ktory umozliwia usuniecie rekordu
+		$arrayContent .= "<td>" . "<a href=\"ksiazkaadresowa.php?delId=$PersonId\">Usun</a>" . "</td>";
+		$arrayContent .= "</td>";
+		$arrayContent .= "</tr>";
+	}
+	$arrayContent .= "</table>";
+
+	//dopisanie zawartosci tabeli do zmiennej, ktora jest wyswietlana na stronie
+	$homepage -> content .= $arrayContent;
+	$homepage -> content .= '
 
 <script type="text/javascript">
 <!-- Ukrycie przed przeglądarkami nieobsługującymi JavaScriptu
@@ -140,5 +142,8 @@ function przetwarzaj_dane (){
 <input type="hidden" name="mode" value="added">
 </table>
 </div>';
+} else {
+	$homepage -> content .= '<div id="content">Z ksiazki adresowej moga korzystac tylko zalogowani uzytkownicy.</div>';
+}
 $homepage -> viewWebsite();
 ?>

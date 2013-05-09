@@ -1,17 +1,18 @@
 <?php
-    require_once 'website.php';
-    class Calendar extends Website { //nowa klasa dziedzicz±ca po Website
-    	public function viewJS() //funkcja wy¶›wietlaj±ca JavaScript
-		{
-		 	echo "<script src=\"cal/codebase/dhtmlxscheduler.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_limit.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_year_view.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_agenda_view.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_cookie.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_recurring.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_pdf.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<script src=\"cal/translate_pl.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
-			echo "<style type=\"text/css\" media=\"screen\">
+require_once 'website.php';
+session_start();
+class Calendar extends Website {//nowa klasa dziedzicz±ca po Website
+	public function viewJS()//funkcja wy¶›wietlaj±ca JavaScript
+	{
+		echo "<script src=\"cal/codebase/dhtmlxscheduler.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_limit.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_year_view.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_agenda_view.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_cookie.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_recurring.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/codebase/ext/dhtmlxscheduler_pdf.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<script src=\"cal/translate_pl.js\" type=\"text/javascript\" charset=\"utf-8\"></script>";
+		echo "<style type=\"text/css\" media=\"screen\">
 						html, body{
 						margin:0px;
 						padding:0px;
@@ -53,29 +54,32 @@
 					dp.init(scheduler);
 
 					}
-					</script>";	
-		}
-		public function viewWebsite() //nadpisana funkcja wy¶wietlaj±ca ca³± stronê
-		{
-			echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
-			echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n";
-			echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-2\" />";
-			$this->viewTitle();
-			$this->viewKeywords();
-			$this->viewCss();
-			$this->viewJS();
-			echo "</head>\n<body onload=\"init();\">";
-			$this->viewHeader();
-			//$this->viewMenu($this->menu);
-			echo $this->content;
-			$this->viewFooter();
-			echo "</body>\n</html>\n";
-		}
-    }
+					</script>";
+	}
+
+	public function viewWebsite()//nadpisana funkcja wy¶wietlaj±ca ca³± stronê
+	{
+		echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+		echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n";
+		echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-2\" />";
+		$this -> viewTitle();
+		$this -> viewKeywords();
+		$this -> viewCss();
+		$this -> viewJS();
+		echo "</head>\n<body onload=\"init();\">";
+		$this -> viewHeader();
+		//$this->viewMenu($this->menu);
+		echo $this -> content;
+		$this -> viewFooter();
+		echo "</body>\n</html>\n";
+	}
+
+}
+$homepage = new Calendar();
 	
+if (isset($_SESSION['zalogowany'])) {
 	
-	$homepage=new Calendar();
-	$homepage->content ='
+	$homepage -> content = '
 		
 		<div id="scheduler_here" class="dhx_cal_container" style="width:100%; height:100%;">
 		<div class="dhx_cal_navline">
@@ -100,6 +104,10 @@
 	</div>
 
 
-	';	
-	$homepage -> viewWebsite();
+	';
+} else {
+	$homepage -> content .= '<div id="content">Z kalendarza moga korzystac tylko zalogowani uzytkownicy.</div>';
+}
+
+$homepage -> viewWebsite();
 ?>
