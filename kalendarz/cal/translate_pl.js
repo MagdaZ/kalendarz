@@ -29,6 +29,9 @@ scheduler.locale={
 	section_location:"Miejsce",
 	full_day:"Cały dzien",
 	date:"Data",
-	description:"Wydarzenie"    
+	description:"Wydarzenie",
+	section_recurring:"Zdarzenia cykliczne",
+	button_recurring:"Nieaktywne",
+	button_recurring_open:"Aktywne"    
     }
 }
