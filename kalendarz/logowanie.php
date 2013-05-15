@@ -2,7 +2,7 @@
 
 require_once 'website.php';
 $homepage = new Website();
-$db = new SQLite3('cal/common/database.sqlite');
+$db = new SQLite3('common/database.sqlite');
 
 session_start();
 
@@ -37,7 +37,7 @@ if (!isset($_SESSION['zalogowany'])) {
 }
 
 if (isset($_SESSION['zalogowany'])) {
-	$homepage -> content .= 'Witam, ' . $_SESSION['login'];
+	$homepage -> content .= '<div id="content">Witam, ' . $_SESSION['login'] .'</div>';
 	$homepage -> content .= '<div id="content">
 	<form method="POST" action="logowanie.php">
 	<input type="submit" value="Wyloguj" name="wyloguj">

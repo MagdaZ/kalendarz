@@ -6,10 +6,10 @@ session_start();
 $homepage = new Website();
 //nawiazanie polaczenia z baza danych
 
-$db = new SQLite3('cal/common/database.sqlite');
+$db = new SQLite3('common/database.sqlite');
 $edit = new editAddressBook();
 if (isset($_SESSION['zalogowany'])) {
-	$homepage -> content .= 'Witam, ' . $_SESSION['login'];
+	$homepage -> content .= '<div id="content">Witam, ' . $_SESSION['login'];
 	//dodawania nowych uzytkownikow lub edycja w zaleznosci od danych wprowadzonych do formularza
 	if (isset($_POST['editId'])) {
 		$name = $_POST['name'];
@@ -23,7 +23,7 @@ if (isset($_SESSION['zalogowany'])) {
 		<script type="text/javascript">
 		alert ("Dodano nowa osobe do ksiazki adresowej.");
 		</script>
-		';
+		</div>';
 		} else {
 			$edit -> editPerson($name, $surname, $email, $position, $id, $db);
 			$homepage -> content .= '

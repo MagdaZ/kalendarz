@@ -1,6 +1,6 @@
 <?php
 	require_once('../codebase/connector/scheduler_connector.php');
-	include ('../common/config.php');
+	include ('../../common/config.php');
 	
 	function delete_related($action){
 		global $scheduler;
